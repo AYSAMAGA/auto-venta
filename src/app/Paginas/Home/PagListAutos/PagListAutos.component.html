@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="card-header">
+    LISTA DE VEHICULOS
+  </div>
+  <div class="card-body">
+    <div class=" row">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Filtro</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Placa/Marca/nombre" [(ngModel)]="filtro">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <a class="btn btn-success" routerLink="{{'/vehiculo/'+ codigoNuevo}}">Nuevo Vehiculo</a>
+       </div> 
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">
+            <button class="btn btn-sm" (click)="mostrarImagen = !mostrarImagen" 
+              [ngClass]="{'btn-warning': mostrarImagen, 'btn-info': !mostrarImagen}"  
+              [innerText]="mostrarImagen ? 'Ocultar Imagen': 'Mostrar Imagen'"></button>
+          </th>
+          <th scope="col">CODIGO</th>
+          <th scope="col">MARCA</th>
+          <th scope="col">MODELO</th>
+          <th scope="col">AÑO</th>
+          <th scope="col">CALIFICACIÓN</th>
+          <th scope="col">OP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaVehiculos">
+          <td><img [src]="item.foto" *ngIf="item.foto && mostrarImagen" style="width:100px"></td>
+          <td scope="row"><a routerLink="{{'/vehiculo/'+ item.codigo}}">{{item.codigo}}</a></td>
+          <td [innerHTML]="item.marca"></td>
+          <td>{{item.modelo | lowercase | aEspacio:"-"}}</td>
+          <td>{{item.anio}}</td>
+          <td>{{item.calificacion}}</td>
+          <td>
+              <div class="btn-group" role ="group" ariel.label="Basic exaple">
+                <button type="button" class="btn- btn-info">Editar</button>
+                <button type="button" class="btn- btn-dang" (click)="eliminar(item.codigo)">Elimiar</button>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
